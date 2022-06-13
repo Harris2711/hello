@@ -13,7 +13,7 @@ pipeline{
         }
         stage ('Deploy'){
             steps {
-                sh '''docker run -itd --name democont -p 80:80 demo:latest'''
+                sh '''docker run -itd --name demo1cont -p 8081:8081 demo:latest'''
             }
         }
     }

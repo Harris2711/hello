@@ -1,0 +1,7 @@
+FROM docker.io/centos
+
+RUN yum install httpd
+
+COPY index.hmtl /var/www/html
+
+EXPOSE 80

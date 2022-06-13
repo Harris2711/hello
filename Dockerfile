@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM docker.io/centos
 
 RUN yum install httpd
 

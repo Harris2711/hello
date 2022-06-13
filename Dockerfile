@@ -1,6 +1,6 @@
-FROM docker.io/centos
+FROM ubuntu
 
-RUN yum install httpd
+RUN apt install httpd
 
 COPY index.html /var/www/html
 

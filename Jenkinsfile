@@ -16,7 +16,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_pass')]) {
                 sh 'docker login -u harris2711 -p ${docker_pass}'
 }
-                sh 'docker push demo:latest'
+                sh 'docker push harris2711/demo:latest'
             }
         }
         stage ('Deploy'){

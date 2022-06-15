@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DOCKERHUUB_CREDENTIALS = credentials('dockeraccesstoken')
-    }
     stages{        
         stage('Checkout'){
             steps {
@@ -11,24 +8,20 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '''docker build -t demo .'''
+                sh 'docker build -t demo .'
             }
         }
-        stage('Docker_Login'){
+        stage('Docker_Push'){
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USER --password-stdin'
-                echo 'Login Completed'
-            }
-        }
-        stage('Docker Push'){
-            steps {
-                sh 'sudo docker push harris2711/sample:$BUILD_NUMBER'
-                echo 'push completed with success'
+                withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_pass')]) {
+                sh 'docker login -u harris2711 -p ${docker_pass}'
+}
+                sh 'docker push harris2711/sample demo'
             }
         }
         stage ('Deploy'){
             steps {
-                sh '''docker run -itd --name newcont -p 8082:8082 demo:latest'''
+                sh '''docker run -itd --name cont -p 80:80 demo:latest'''
             }
         }
     }

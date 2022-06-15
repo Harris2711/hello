@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t demo .'
+                sh 'docker build -t harris2711/demo:latest .'
             }
         }
         stage('Docker_Push'){
@@ -21,7 +21,7 @@ pipeline {
         }
         stage ('Deploy'){
             steps {
-                sh '''docker run -itd --name cont -p 80:80 demo:latest'''
+                sh '''docker run -itd --name cont -p 80:80 harris2711/demo:latest'''
             }
         }
     }
